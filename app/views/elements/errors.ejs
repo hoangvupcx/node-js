@@ -1,0 +1,13 @@
+<% if(errors) { %>
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <ul>
+            <%
+                errors.forEach((error) => { %>
+                    <li><strong><%= error.param.charAt(0).toUpperCase() + error.param.slice(1) %></strong>: <%= error.msg.charAt(0).toUpperCase() + error.msg.slice(1) %></li>
+                <% })
+            %>
+        </ul>
+       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+ </div>
+
+ <% } %>

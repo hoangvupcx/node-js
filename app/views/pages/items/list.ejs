@@ -1,0 +1,132 @@
+<% include ./../../helpers/filter-status %>
+<% include ./../../helpers/action %>
+<% include ./../../helpers/pagination %>
+<% include ./../../helpers/status %>
+
+<%
+   const collection = 'items';
+   const linkPrefix = systemConfig.prefixAdmin + '/' + collection + '/';
+%>
+<div class="content-wrapper">
+   <!-- Content -->
+   <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tables /</span> Basic Tables</h4>
+      <!-- Basic Bootstrap Table -->
+      <div class="card">
+         <%- locals.flash %>
+         <div class="row">
+            <div class="col-6 row">
+               <div class="col-12">
+                  <h5 class="card-header">
+                     <%- filterStatusHelper(collection, statusFilter, keyword) %>
+                   </h5>
+               </div>
+               <div class="col-12">
+                  <h5 class="card-header pt-0">
+                     <a href="<%= linkPrefix %>form">
+                        <button type="button" class="btn btn-outline-danger">Add New</button>
+                     </a>
+                  </h5>
+               </div>
+            </div>
+            <div class="col-6">
+               <h5 class="card-header">
+                  <form action="<%= linkPrefix %>status/<%= currentStatus %>" method="GET">
+                     <input type="text" class="form-control" name="keyword" placeholder="Search for..." value="<%= keyword %>">
+                     <br>
+                     <button type="submit" class="btn btn-info">Search</button>
+                     <a href="<%= linkPrefix %>status/<%= currentStatus %>" class="btn btn-danger">Clear</a>
+                  </form>
+               </h5>
+            </div>
+         </div>
+         
+         
+         <form action="" method="POST" role="form" id="form-main">
+            <div class="row">
+               <div class="col-6">
+                  <div class="card-body demo-vertical-spacing demo-only-element pt-0">
+                     <%- actionHelper(collection) %>
+                  </div>
+               </div>
+            </div>
+            
+            <div class="table-responsive text-nowrap">
+               <table class="table">
+                  
+                  <thead>
+                     <tr>
+                        <th><input type="checkbox" class="cbAll form-check-input"></th>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Ordering</th>
+                        <th class="text-center">Actions</th>
+                     </tr>
+                  </thead>
+                  <tbody class="table-border-bottom-0">
+                     <% items.forEach((item, index) => { %> 
+
+                        <tr>
+                           <td><input type="checkbox" name="cid" value="<%= item.id %>" class="form-check-input"/></td>
+                           <td><%= index + 1 %></td>
+                           <td><a href="<%= linkPrefix %>form/<%= item.id %>"><%= item.name %></a></td>
+                           <td>
+                              <%- statusHelper(collection, item.status, item.id) %>
+                              
+                           </td>
+                           <td>
+                              <input type="number" value="<%= item.ordering %>" class="form-control ordering">
+                           </td>
+                           <td>
+                              <div class="d-flex justify-content-around">
+                                 <a href="<%= linkPrefix %>form/<%= item.id %>">
+                                    <button type="button" class="btn btn-icon btn-outline-primary btn-edit">
+                                       <span class="bx bx-edit-alt"></span>
+                                    </button>
+                                 </a>
+                                 <a href="<%= linkPrefix %>delete/<%= item.id %>">
+                                    <button type="button" class="btn btn-icon btn-outline-primary btn-delete">
+                                       <span class="bx bx-trash"></span>
+                                    </button>
+                                 </a>
+                                 
+                              </div>
+                           </td>
+                        </tr>
+
+                     <% }) %>
+                     
+                  </tbody>
+               </table>
+            </div>
+         </form>
+      </div>
+      <!--/ Responsive Table -->
+
+      <hr>
+      <%- paginationHelper(pagination, collection, currentStatus, keyword) %>
+   </div>
+   <!-- / Content -->
+   <!-- Footer -->
+   <footer class="content-footer footer bg-footer-theme">
+      <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+         <div class="mb-2 mb-md-0">
+            ©
+            <script>
+               document.write(new Date().getFullYear());
+            </script>2024
+            , made with ❤️ by
+            <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
+         </div>
+         <div>
+            <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+            <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+            <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a>
+            <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank" class="footer-link me-4">Support</a>
+         </div>
+      </div>
+   </footer>
+   <!-- / Footer -->
+   <div class="content-backdrop fade"></div>
+ </div>

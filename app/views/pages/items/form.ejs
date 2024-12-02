@@ -1,0 +1,46 @@
+<%
+   const collection = 'items';
+   const linkPrefix = systemConfig.prefixAdmin + '/' + collection + '/';
+%>
+<div class="content-wrapper">
+  <!-- Content -->
+  <div class="container-xxl flex-grow-1 container-p-y">
+     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"><%= title %></span></h4>
+     <form action="<%= linkPrefix %>save" method="POST" role="form">
+         <div class="row">
+            <div class="col-md-6">
+               <div class="card mb-4">
+                  <div class="card-body">
+                     <% include ./../../elements/errors %>
+                    
+                        <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="<%= item.name %>">
+                        </div>
+                        <div class="mb-3">
+                           <label for="status" class="form-label">Status</label>
+                           <select id="status" class="form-select" name="status">
+                              <option value="default" <%= (item.status == 'default') ? 'selected' : '' %>>Select Status</option>
+                              <option value="active" <%= (item.status == 'active') ? 'selected' : '' %>>Active</option>
+                              <option value="inactive" <%= (item.status == 'inactive') ? 'selected' : '' %>>Inactive</option>
+                           </select>
+                        </div>
+                        <div class="mb-3">
+                           <label for="ordering" class="form-label">Ordering</label>
+                           <input type="number" name="ordering" class="form-control" id="ordering" placeholder="Ordering" value="<%= item.ordering%>">
+                        </div>
+                        <div class="mb-3">
+                           <input type="hidden" id="id" name="id" value="<%= item.id%>">
+                           <button type="submit" class="btn btn-outline-success">Submit</button>
+                           <a href="<%= linkPrefix %>">
+                              <button type="button" class="btn btn-outline-danger">Cancel</button>
+                           </a>
+                        </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </form>
+  </div>
+  <!-- / Content -->
+</div>

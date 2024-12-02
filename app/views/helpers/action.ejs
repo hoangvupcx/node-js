@@ -1,0 +1,25 @@
+<% 
+   actionHelper = (collection) => { 
+      let actions = [
+         { value: "",                        name: "Bulk Action"},
+         { value: "change-status/active",    name: "Active" },
+         { value: "change-status/inactive",  name: "InActive" },
+         { value: "change-ordering/",        name: "Change Ordering" },
+         { value: "delete/",                 name: "Delete" },
+
+      ];
+      let xhtmlAction = '';
+
+      actions.forEach( (action) => { 
+         let link = systemConfig.prefixAdmin + '/' + collection + '/' + action.value;
+         xhtmlAction += `<option value="${link}">${action.name}</option>`;
+      });
+
+      return ` <div class="input-group">
+                  <select class="form-select slbAction" namw="action" id="inputGroupSelect04" aria-label="Example select with button addon">
+                    ${xhtmlAction}
+                  </select>
+                  <button class="btn btn-outline-primary btnAction" type="button" value="btnAction" id="btn-action" disabled>Apply</button>
+               </div>`;
+   }
+%>
